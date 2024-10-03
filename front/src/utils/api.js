@@ -1,1 +1,1 @@
-export const LOCAL_API = import.meta.env.VITE_API_ENV === "production" ? 'http://15.236.38.180' : "http://localhost:3000";
+export const LOCAL_API = import.meta.env.VITE_API_ENV === "production" ? 'http://15.236.38.180:3000' : "http://localhost:3000";
