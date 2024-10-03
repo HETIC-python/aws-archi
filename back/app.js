@@ -20,7 +20,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
+const config = process.env.NODE_ENV === 'production' ?
+  'http://15.236.38.180/client/9' : 'http://localhost:3000';
+app.use(cors({
+  origin: config
+}));
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,

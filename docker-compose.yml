@@ -15,11 +15,14 @@ services:
     ports:
       - '3000:3000'
     stdin_open: true
+    depends_on:
+      - front
+      - back
   front:
     build: 
       context: ./front
       dockerfile: Dockerfile
     container_name: front
     ports:
-      - '89:80'
+      - '80:80'
     stdin_open: true
