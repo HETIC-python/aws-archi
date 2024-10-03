@@ -1,0 +1,25 @@
+services:
+  back:
+    build: 
+      context: ./back
+      dockerfile: Dockerfile
+    # container_name: back
+    # ports:
+      # - '4000:3000'
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+    ports:
+      - '3000:3000'
+    stdin_open: true
+  front:
+    build: 
+      context: ./front
+      dockerfile: Dockerfile
+    container_name: front
+    ports:
+      - '89:80'
+    stdin_open: true

@@ -8,9 +8,11 @@ export default function Client() {
   const [client, setClient] = useState(null);
 
   useEffect(() => {
-    fetch(`https://mlu2cjiiom2byubbw6fepez6yq0zfvqe.lambda-url.eu-west-3.on.aws/${id}`)
+    // fetch(`https://mlu2cjiiom2byubbw6fepez6yq0zfvqe.lambda-url.eu-west-3.on.aws/${id}`)
+    fetch(`http://localhost:3000/clients/${id}`)
       .then((response) => response.json())
-      .then((data) => setClient(data))
+      .then((response) => {console.log({response}); return response})
+      .then((data) => setClient(data?.data))
       .catch((error) => console.error("Error fetching client data:", error));
   }, [id]);
 
@@ -61,8 +63,8 @@ return (
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{client.name}</dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Project :</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{client.project}</dd>
+            <dt className="text-sm font-medium leading-6 text-gray-900">Entrprise :</dt>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{client.company}</dd>
           </div>
         </dl>
       </div>
@@ -98,7 +100,6 @@ return (
                 style={{ display: "none" }}
                 onChange={(e) => handleFileUpload(e)}
             />
-
                 <div className="border border-radius-2" onClick={() => document.getElementById("fileInput").click()}>
                 <svg className=" inset-0 h-full w-full stroke-gray-900/10" fill="none">
               <defs>
