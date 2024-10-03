@@ -1,0 +1,1 @@
+// const LOCAL_API = import.meta.env.VITE_API_URL || 'http://15.236.38.180'

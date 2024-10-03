@@ -3,6 +3,8 @@ services:
     build: 
       context: ./back
       dockerfile: Dockerfile
+    networks:
+      - mynetwork
     # container_name: back
     # ports:
       # - '4000:3000'
@@ -18,6 +20,8 @@ services:
     depends_on:
       - front
       - back
+    networks:
+      - mynetwork
   front:
     build: 
       context: ./front
@@ -26,3 +30,12 @@ services:
     ports:
       - '80:80'
     stdin_open: true
+    networks:
+      - mynetwork
+    environment:
+      - VITE_API_URL=http://backend:3000
+    
+
+    
+networks:
+  mynetwork:
