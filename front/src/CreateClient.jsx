@@ -2,12 +2,12 @@ import { useState } from "react";
 import Layout from "./Layout";
 import { useNavigate } from "react-router-dom";
 
-export async function createClient(name,surname, company) {
+async function createClient(name, surname, company) {
   const res = await fetch(
-    "https://mlu2cjiiom2byubbw6fepez6yq0zfvqe.lambda-url.eu-west-3.on.aws/post",
+    "https://ljiegrav3k.execute-api.eu-west-3.amazonaws.com/v1/createClient",
     {
       method: "POST",
-      body: JSON.stringify({ name,surname, company }),
+      body: JSON.stringify({ name, surname, company }),
     }
   );
   if (!res.ok) {

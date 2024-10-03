@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // export default function Layout() {
 //   return (
@@ -43,14 +43,18 @@ function classNames(...classes) {
 }
 
 export default function Layout({ children }) {
+  const navigate = useNavigate()
+  const navToHome = () => {
+    navigate('/')
+  }
   return (
     <>
       <div className="min-h-full">
-        <Disclosure as="nav" className="bg-gray-800">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Disclosure as="nav" className="bg-gray-800 sticky top-0 shadow-2xl">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 shadow-2xl">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0 cursor-pointer" onClick={navToHome}>
                   <img
                     alt="Your Company"
                     src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
