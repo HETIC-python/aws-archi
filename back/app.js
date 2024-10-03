@@ -1,7 +1,6 @@
 require('dotenv').config()
 const express = require('express');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -15,13 +14,19 @@ var cors = require('cors')
 
 
 
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // limit file size to 5MB
+  },
+});
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 const config = process.env.NODE_ENV === 'production' ?
-  'http://15.236.38.180' : 'http://localhost:3000';
+  'http://15.236.38.180' : 'http://localhost:5173';
 app.use(cors({
   origin: config
 }));
@@ -79,19 +84,22 @@ app.get("/clients", async (req, res) => {
 })
 app.post('/clients/:id/upload', upload.single('file'), async (req, res) => {
   try {
+    console.log(req.file);
     const { id } = req.params;
-    const { filename } = req.file;
-    const file = await main(filename, req.body);
+    const { originalname, buffer } = req.file;
+    const file = await main(originalname, buffer);
     const insert = await new Promise((resolve, reject) => {
-      pool.query(`INSERT INTO documents (bucket,filename,objectURL,Etag,key,client_id) VALUES ('${file.Bucket}','${file.Key}','${file.Location}','${file.ETag}','${file.Key}','${id}') `, (error, results) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results);
-        }
+      pool.query(`INSERT INTO documents (bucket, filename, objectURL, Etag, \`key\`, client_id) VALUES (?, ?, ?, ?, ?, ?)`, 
+      [file.Bucket, file.Key, file.Location, file.ETag, file.Key, id], 
+      (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
       });
     });
-    res.json({ id, filename });
+    res.json({ id, originalname });
   } catch (e) {
     console.log(e);
     res.status(500).json({ error: 'Internal Server Error', sucess: false });

@@ -10,7 +10,7 @@ const  {
   GetObjectCommand,
 } = require('@aws-sdk/client-s3');
 
-async function main(filename, mainFile) {
+async function main(filename, body) {
   const s3Client = new S3Client({
     region: 'eu-north-1',
     credentials: {
@@ -27,7 +27,7 @@ async function main(filename, mainFile) {
       params: {
         Bucket: bucketName,
         Key: filename,
-        Body: mainFile,
+        Body: body,
         ContentType: 'application/pdf'
       },
       tags: [],
@@ -55,6 +55,6 @@ async function main(filename, mainFile) {
   console.log(await Body.transformToString());
 }
 
-exports.module = {
+module.exports = {
   main
 }
