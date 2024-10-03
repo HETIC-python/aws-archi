@@ -3,10 +3,9 @@ import Client from "./Client";
 import Layout from "./Layout";
 export async function fetchUsers() {
   try {
-    const res = await fetch(
-      "https://mlu2cjiiom2byubbw6fepez6yq0zfvqe.lambda-url.eu-west-3.on.aws/"
-    );
-    return res.json();
+    const res = await fetch("https://ljiegrav3k.execute-api.eu-west-3.amazonaws.com/v1/getAllClients");
+    const data = await res.json();
+    return JSON.parse(data.body);
   } catch (error) {
     console.log(error);
     return [];
