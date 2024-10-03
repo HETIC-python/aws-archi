@@ -29,9 +29,13 @@ export default function Client() {
     const formData = new FormData();
     formData.append("file", file);
 
-    fetch(`https://mlu2cjiiom2byubbw6fepez6yq0zfvqe.lambda-url.eu-west-3.on.aws/${id}`, {
+    // fetch(`https://mlu2cjiiom2byubbw6fepez6yq0zfvqe.lambda-url.eu-west-3.on.aws/${id}`, {
+    fetch(`${LOCAL_API}/clients/${id}/upload`,{
       method: "POST",
       body: formData,
+      // headers: {
+      //   "Content-Type": "multipart/form-data",
+      // },
     })
       .then((response) => response.json())
       .then((data) => {
@@ -47,7 +51,7 @@ export default function Client() {
   function onSubmit() {
 
     //.............
-}
+  }
 
 return (
     <Layout>
