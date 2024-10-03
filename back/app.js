@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 const config = process.env.NODE_ENV === 'production' ?
-  'http://15.236.38.180/client/9' : 'http://localhost:3000';
+  'http://15.236.38.180' : 'http://localhost:3000';
 app.use(cors({
   origin: config
 }));
