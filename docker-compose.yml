@@ -34,7 +34,7 @@ services:
       - mynetwork
     environment:
       - VITE_API_URL=http://backend:3000
-    
+      - VITE_API_ENV=prod    
 
     
 networks:

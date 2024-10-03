@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../Layout";
 import { PaperClipIcon } from '@heroicons/react/20/solid'
+import { LOCAL_API } from "../utils/api";
 
 export default function Client() {
   const { id } = useParams();
@@ -9,7 +10,7 @@ export default function Client() {
 
   useEffect(() => {
     // fetch(`https://mlu2cjiiom2byubbw6fepez6yq0zfvqe.lambda-url.eu-west-3.on.aws/${id}`)
-    fetch(`http://localhost:3000/clients/${id}`)
+    fetch(`${LOCAL_API}/clients/${id}`)
       .then((response) => response.json())
       .then((response) => {console.log({response}); return response})
       .then((data) => setClient(data?.data))
