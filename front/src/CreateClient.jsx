@@ -18,6 +18,7 @@ export async function createClient(name, company) {
 
 export default function CreateClient() {
   const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [company, setCompany] = useState("");
   const [error, setError] = useState("");
     const navigate = useNavigate()
@@ -50,6 +51,17 @@ export default function CreateClient() {
               value={name}
               onChange={(e) => setName(e?.target?.value)}
               id="name"
+            />
+          </div>
+          <div className="grid gap-2 p-2">
+            <label htmlFor="surname">Surname</label>
+            <input
+              className="border"
+              type="text"
+              name="surname"
+              value={surname}
+              onChange={(e) => setSurname(e?.target?.value)}
+              id="surname"
             />
           </div>
           <div className="grid gap-2 p-2">
