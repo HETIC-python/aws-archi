@@ -2,12 +2,12 @@ import { useState } from "react";
 import Layout from "./Layout";
 import { useNavigate } from "react-router-dom";
 
-export async function createClient(name, company) {
+export async function createClient(name,surname, company) {
   const res = await fetch(
     "https://mlu2cjiiom2byubbw6fepez6yq0zfvqe.lambda-url.eu-west-3.on.aws/post",
     {
       method: "POST",
-      body: JSON.stringify({ name, company }),
+      body: JSON.stringify({ name,surname, company }),
     }
   );
   if (!res.ok) {
@@ -26,10 +26,11 @@ export default function CreateClient() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await createClient(name, company);
+      const res = await createClient(name,surname, company);
       if (res) {
         setName("");
         setCompany("");
+        setSurname("");
         
           navigate('/')
       }
